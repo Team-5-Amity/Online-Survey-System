@@ -1,0 +1,26 @@
+// ResponseCollectionForm.java
+package ui;
+
+import database.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class ResponseCollectionForm {
+    public static void collectResponse(String respondent, String surveyTitle, String answer) {
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "INSERT INTO responses (respondent, survey_title, answer) VALUES (?, ?, ?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, respondent);
+                preparedStatement.setString(2, surveyTitle);
+                preparedStatement.setString(3, answer);
+                preparedStatement.executeUpdate();
+                System.out.println("Response collected successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+

@@ -1,0 +1,23 @@
+// SurveyCreationForm.java
+package ui;
+
+import database.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class SurveyCreationForm {
+    public static void createSurvey(String surveyTitle) {
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "INSERT INTO surveys (title) VALUES (?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, surveyTitle);
+                preparedStatement.executeUpdate();
+                System.out.println("Survey created successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

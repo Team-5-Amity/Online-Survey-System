@@ -1,0 +1,28 @@
+// Authorization.java
+package util;
+
+import database.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Authorization {
+    public static boolean checkAuthorization(String username, String role, String permission) {
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "SELECT * FROM user_roles WHERE username = ? AND role = ? AND permission = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, username);
+                preparedStatement.setString(2, role);
+                preparedStatement.setString(3, permission);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                return resultSet.next(); // If a record is found, user has the specified permission
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+}
+

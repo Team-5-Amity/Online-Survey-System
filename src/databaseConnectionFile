@@ -1,0 +1,49 @@
+-- Create the 'onlinesurveysystem' database
+-- CREATE DATABASE IF NOT EXISTS onlinesurveysystem;
+
+-- -- Use the 'onlinesurveysystem' database
+-- USE onlinesurveysystem;
+
+-- -- Create the 'surveys' table
+-- CREATE TABLE IF NOT EXISTS surveys (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     title VARCHAR(255) NOT NULL
+-- );
+
+-- -- Create the 'questions' table
+-- CREATE TABLE IF NOT EXISTS questions (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     survey_id INT,
+--     text VARCHAR(255) NOT NULL,
+--     type VARCHAR(50) NOT NULL,
+--     FOREIGN KEY (survey_id) REFERENCES surveys(id)
+-- );
+
+-- -- Create the 'responses' table
+-- CREATE TABLE IF NOT EXISTS responses (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     respondent VARCHAR(255) NOT NULL,
+--     survey_id INT,
+--     question_id INT,
+--     answer TEXT,
+--     FOREIGN KEY (survey_id) REFERENCES surveys(id),
+--     FOREIGN KEY (question_id) REFERENCES questions(id)
+-- );
+
+-- -- Create the 'users' table
+-- CREATE TABLE IF NOT EXISTS users (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     username VARCHAR(255) NOT NULL UNIQUE,
+--     password VARCHAR(255) NOT NULL,
+--     role VARCHAR(50) NOT NULL
+-- );
+
+-- -- Create the 'user_roles' table
+-- CREATE TABLE IF NOT EXISTS user_roles (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     username VARCHAR(255) NOT NULL,
+--     role VARCHAR(50) NOT NULL,
+--     permission VARCHAR(50) NOT NULL,
+--     UNIQUE KEY unique_user_role (username, role, permission),
+--     FOREIGN KEY (username) REFERENCES users(username)
+-- );
